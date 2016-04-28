@@ -15,7 +15,7 @@ import peersim.core.Network;
 import peersim.core.Node;
 import peersim.edsim.EDProtocol;
 
-public class StressCentrality implements EDProtocol{
+public class StressCentrality implements CDProtocol, EDProtocol{
 	
 	//EDprotocol allow process incoming messages
 
@@ -30,6 +30,11 @@ public class StressCentrality implements EDProtocol{
 		spTable = new HashMap<Node, Integer>();
 	}
 
+	
+	public void nextCycle(Node arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
 	/**
 	* This is the standard method to define to process incoming messages.
 	*/
@@ -47,7 +52,7 @@ public class StressCentrality implements EDProtocol{
 			if(!spTable.containsKey(send) && recFromNeighbours ==linkable.degree())
 				spTable.put(send, recFromNeighbours);
 				//must wait all the messages from the neighbour in orderto insert the sp,				
-			}
+			
 		}
 		
 		for(int j=0; j < linkable.degree(); j++){
@@ -85,6 +90,8 @@ public class StressCentrality implements EDProtocol{
 		catch( CloneNotSupportedException e ) {} // never happens
 		return p;
 	}
+
+
 
 
 
