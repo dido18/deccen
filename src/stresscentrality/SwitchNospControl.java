@@ -1,12 +1,9 @@
 package stresscentrality;
 
 import peersim.config.Configuration;
-import peersim.core.Control;
-import peersim.core.IdleProtocol;
-import peersim.core.Linkable;
-import peersim.core.Network;
+import peersim.core.*;
 
-public class StressControl implements Control {
+public class SwitchNospControl implements Control {
 	// IN event based can be used to react to some events (incoming messages)
 	
 	// ------------------------------------------------------------------------
@@ -18,20 +15,25 @@ public class StressControl implements Control {
 	// ------------------------------------------------------------------------
 	private final int protocolID;
 	
-	public StressControl(String prefix){
+	public SwitchNospControl(String prefix){
 		protocolID = Configuration.getInt(prefix+"."+PAR_PROT);
 	}
 
 	public boolean execute() {
-		System.out.println("EXECUTE control");
+		System.out.println("");
 		for(int i =0; i < Network.size(); i++){
-			//StressCentrality sc = ((StressCentrality) Network.get(i).getProtocol(protocolID));
+			CountPhase sc = ((CountPhase) Network.get(i).getProtocol(protocolID));
 			//System.out.println(Network.get(i));
-			IdleProtocol l = (IdleProtocol)Network.get(i).getProtocol(0);
-			System.out.print("\nNode "+i+ " neighbour :");
-			for(int j=0; j <l.degree();j++)
-				System.out.print(l.getNeighbor(j).getID()+", ");
-			
+			//IdleProtocol l = (IdleProtocol)Network.get(i).getProtocol(0);
+
+            for(Node n :sc.nospBuffer.keySet()){
+                if(!sc.spTable.containsKey(n)) //IT'S NOT A BACKFIRING MESSAGE
+                    sc.spTable.put(n , sc.nospBuffer.get(n));
+            }
+            System.out.print("\nNode "+i+ " ");
+            for(Node n: sc.spTable.keySet()){
+                System.out.print(n.getID()+":"+sc.spTable.get(n)+", ");
+            }
 		}
 		return false;
 	}

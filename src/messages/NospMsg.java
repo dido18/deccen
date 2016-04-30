@@ -6,7 +6,7 @@ public class NospMsg {
 	 /** If not null,
     this has to be answered, otherwise this is the answer. */
 	public Node sender; 
-	private int weight;  //shortest path ID
+	private int weight;  //shortest path
 	
 	public NospMsg(Node sender, int sp){
 		this.sender = sender;

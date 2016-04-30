@@ -2,14 +2,10 @@ package stresscentrality;
 
 import messages.NospMsg;
 import peersim.config.Configuration;
-import peersim.config.FastConfig;
-import peersim.core.CommonState;
 import peersim.core.Control;
 import peersim.core.IdleProtocol;
-import peersim.core.Linkable;
 import peersim.core.Network;
 import peersim.core.Node;
-import peersim.transport.Transport;
 
 public class StressInit implements Control{
 
@@ -44,19 +40,17 @@ public class StressInit implements Control{
         	Node n = Network.get(i);
         	IdleProtocol linkable =  (IdleProtocol) Network.get(i).getProtocol(0);
         	if(i==0){// only for testing starting with only one node
-        	if (linkable.degree() > 0){
-        		System.out.print("\nnode "+n.getID() +" sent to node");
-        		for(int j=0; j < linkable.degree(); j++){
-	               Node peern = linkable.getNeighbor(j);//CommonState.r.nextInt(linkable.degree()));
-	               if(!peern.isUp()) return false;
-		           ((Transport)n.getProtocol(FastConfig.getTransport(pid))).
-		            send(	n,
-		                    peern,
-		                    new NospMsg(n, sp),
-		                    pid);
-		           System.out.print(" "+peern.getID()+",");
-	        	}
-        		}
+				if (linkable.degree() > 0){
+					System.out.print("\nnode "+n.getID() +" ->");
+					for(int j=0; j < linkable.degree(); j++){
+					   Node peern = linkable.getNeighbor(j);//CommonState.r.nextInt(linkable.degree()));
+					   if(!peern.isUp()) return false;
+						CountPhase scPeer = (CountPhase) peern.getProtocol(1);
+						scPeer.receiveNOSP(new NospMsg(n,sp));
+						//scPeer.nospBuffer.put(n, sp);
+					   //	System.out.print(" "+peern.getID()+",");
+					}
+					}
         	}
     }
 		return false;
