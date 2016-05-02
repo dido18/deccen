@@ -23,8 +23,6 @@ public class SwitchNospControl implements Control {
 		System.out.println("");
 		for(int i =0; i < Network.size(); i++){
 			CountPhase sc = ((CountPhase) Network.get(i).getProtocol(protocolID));
-			//System.out.println(Network.get(i));
-			//IdleProtocol l = (IdleProtocol)Network.get(i).getProtocol(0);
 
             for(Node n :sc.nospBuffer.keySet()){
                 if(!sc.spTable.containsKey(n)) //IT'S NOT A BACKFIRING MESSAGE

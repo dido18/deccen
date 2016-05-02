@@ -1,71 +1,52 @@
 package stresscentrality;
 
-import javafx.util.Pair;
-import messages.NospMsg;
 import messages.ReportMessage;
 import peersim.cdsim.CDProtocol;
 import peersim.core.IdleProtocol;
-import peersim.core.Network;
 import peersim.core.Node;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 
 public class ReportPhase implements CDProtocol{
 
+    //N^2 data structure that store all the report messages received
+    public TableReport tableReport;
 
-    //n^2 table size
-    public HashMap<Node, ArrayList<Integer>> reportTable;
-
-	public ReportPhase(String prefix){
-        reportTable = new HashMap<>();
-        for (int i = 0; i < Network.size(); i++) {
-            Node n = Network.get(i);
-            reportTable.put(n, new ArrayList<>(Network.size()));
-        }
+    public ReportPhase(String prefix){
+        init();
 	}
 
-    /**
-     *
-     * @param node   is the called node
-     * @param protocolID    the protocol ID
-     */
+
   	public void nextCycle(Node node, int protocolID) {
 
-        //System.out.println("node "+ node.getID()+ " :"+nospBuffer.values().toString());
         IdleProtocol linkable =  (IdleProtocol) node.getProtocol(0);
-        CountPhase countPhase = (CountPhase)node.getProtocol(1);
+        CountPhase cp = (CountPhase)node.getProtocol(1);
         for(int j=0; j < linkable.degree(); j++) {
             Node peern = linkable.getNeighbor(j);
-            for (Node k : countPhase.spTable.keySet()) {
-                if (peern.getID() != k.getID()) {
-                    ReportPhase rp = (ReportPhase) peern.getProtocol(protocolID);
-                    rp.receiveReport(new ReportMessage(k, node, countPhase.spTable.get(k)));
-                }
+            ReportPhase rp = (ReportPhase) peern.getProtocol(protocolID);
+            //send NOSP message received precedently
+            for (Node sender : cp.spTable.keySet()) {
+                rp.receiveReport(new ReportMessage(sender, node, cp.spTable.get(sender)));
             }
         }
 
-	}
 
-    //receive msg of the count phase
-    public void receiveReport(ReportMessage msg ){//Node from, int shortestPath){
+        }
 
-        //TODO: msg getIndex isntead od getID() can be prblem ?
-        Node s = msg.sender;
-        Node t = msg.target;
-        if(reportTable.get(msg.sender).get(0) == null)
-            System.out.print("received new report masssage");
-            //nospBuffer.put(from, nospBuffer.get(from)+1);
-        else
-            System.out.print("recieved already messag");
-           // nospBuffer.put(from, msg.getWeight());
+    public void receiveReport(ReportMessage msg ){
+
+        if(!tableReport.contains(msg.sender, msg.target))
+            tableReport.put(msg.sender,msg.target,msg.weigth);
+//        else
+
 
     }
 
 	
     public void init(){
-        reportTable = new HashMap<>();
+        tableReport = new TableReport();
     }
 
     /**
