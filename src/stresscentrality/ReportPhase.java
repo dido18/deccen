@@ -59,11 +59,11 @@ public class ReportPhase implements CDProtocol{
         Node t = msg.target;
         if(cp.nodeDistance.containsKey(s) && cp.nodeDistance.containsKey(t)) {
             if (cp.nodeDistance.get(s) + cp.nodeDistance.get(t) == msg.weigth) { //contributin message  d(s,v)+d(v,t) == weigth msg
-                System.out.print("\nnode " + receiver.getID() + ": is contributing (" + s.getID() + " " + t.getID() + ")");
+                //System.out.print("\nnode " + receiver.getID() + ": is contributing (" + s.getID() + " " + t.getID() + ")");
                 tableReport.put(s, t, msg.weigth);
             }
             else{
-               reportToSent.add(msg);
+             //  reportToSent.add(msg);
             }
 
         }
