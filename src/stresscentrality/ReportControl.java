@@ -1,7 +1,10 @@
 package stresscentrality;
 
+import messages.NospMsg;
+import messages.ReportMessage;
 import peersim.config.Configuration;
 import peersim.core.Control;
+import peersim.core.IdleProtocol;
 import peersim.core.Network;
 import peersim.core.Node;
 
@@ -22,10 +25,15 @@ public class ReportControl implements Control {
 	}
 
 	public boolean execute() {
-		System.out.print("\nreport control {");
+		System.out.print("\nReport control, contributing message {\n");
+
 		for(int n =0; n < Network.size(); n++) {
 			ReportPhase rp = ((ReportPhase) Network.get(n).getProtocol(protocolID));
-			for (int i = 0; i < Network.size(); i++) {
+			IdleProtocol linkable =  (IdleProtocol) Network.get(n).getProtocol(0);
+            //for(Node node: rp.tableReport.keySet()){
+                System.out.println("\tNode"+n+"(" +rp.tableReport.toString()+ ")");
+            //}
+/*			for (int i = 0; i < Network.size(); i++) {
 				for (int j = 0; j < Network.size(); j++) {
                     Node s = Network.get(i);
                     Node t = Network.get(j);
@@ -34,7 +42,7 @@ public class ReportControl implements Control {
                             System.out.print("(" + i + " " + j + ")/" + rp.tableReport.getWeigth(s,t) + ", ");
                         }
 				}
-			}
+			}*/
 
 		}
 		System.out.print("}");

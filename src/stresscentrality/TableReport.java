@@ -1,5 +1,6 @@
 package stresscentrality;
 
+import javafx.scene.NodeBuilder;
 import peersim.core.Node;
 
 import java.util.Collection;
@@ -10,19 +11,19 @@ import java.util.HashMap;
  */
 public class TableReport {
 
-    private HashMap<Node, HashMap<Node,Integer>> table;
+    private HashMap<Node, HashMap<Node,Long>> table;
 
 
     public TableReport(){
         table = new HashMap<>();
     }
 
-    public Integer getWeigth(Node s, Node t) {
-        Integer weigth;
+    public Long getWeigth(Node s, Node t) {
+        Long weigth;
         if (table.containsKey(s))
             weigth = table.get(s).get(t);
         else
-            weigth = 0;
+            weigth = 0L;
         return  weigth;
     }
 
@@ -33,12 +34,12 @@ public class TableReport {
             throw new Exception("THe list is emty");
     }
 
-    public void put( Node s, Node t, Integer w){
+    public void put( Node s, Node t, Long w){
 
         if(table.get(s) != null)
             table.get(s).put(t,w);
         else {
-            HashMap<Node, Integer> tTable = new HashMap<>();
+            HashMap<Node, Long> tTable = new HashMap<>();
             tTable.put(t,w);
             table.put(s, tTable);
         }
@@ -55,5 +56,18 @@ public class TableReport {
 
     public Collection<Node> keySet(){
         return table.keySet();
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder st = new StringBuilder();
+        st.append("[");
+        for(Node s: table.keySet()){
+            for(Node t: table.get(s).keySet())
+                st.append("("+s.getID()+":" +t.getID() +"=" + getWeigth(s,t) +")");
+        }
+        st.append("]");
+        return st.toString();
     }
 }

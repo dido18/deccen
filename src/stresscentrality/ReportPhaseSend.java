@@ -24,7 +24,8 @@ public class ReportPhaseSend implements CDProtocol{
             try {
                 for (Node sender : myrp.tableReport.keySet())
                     for (Node target : myrp.tableReport.getTargets(sender)) {
-                        rp.receiveReport(new ReportMessage(sender, target, myrp.tableReport.getWeigth(sender, target)));
+                        //rp.receiveReport(new ReportMessage(sender, target, myrp.tableReport.getWeigth(sender, target)));
+
                     }
 
 

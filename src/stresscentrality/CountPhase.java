@@ -16,7 +16,7 @@ public class CountPhase implements CDProtocol{
 
 	public HashMap<Node, Integer> nospBuffer;  // bugffer og the recieved NOSP msg, in order to sum from the same source id.
     public HashMap<Node,Integer> spTable;   //store the number of sorthest path to any node
-    public HashMap<Node, Long> nodeDistance; //store the distance of all the nodes inthe network
+    public HashMap<Node, Long> nodeDistance; //store the distance of all the nodes in the network
     public long cycle;  //# number of cycles -> distance from the node
 	
 	public CountPhase(String prefix){
@@ -30,7 +30,6 @@ public class CountPhase implements CDProtocol{
      */
   	public void nextCycle(Node node, int protocolID) {
         cycle += 1;
-        //System.out.println("node "+ node.getID()+ " :"+nospBuffer.values().toString());
         IdleProtocol linkable =  (IdleProtocol) node.getProtocol(0);
         for(int j=0; j < linkable.degree(); j++) {
             Node peern = linkable.getNeighbor(j);
@@ -41,23 +40,19 @@ public class CountPhase implements CDProtocol{
                 }
             }
         }
-
-
-
 	}
 
-    //receive msg of the count phase
-    public void receiveNOSP(NospMsg msg ){//Node from, int shortestPath){
-        //nospBuffer.add(msg);
+    /**
+     * PPut the received NOSP messsages in  buffer. The SwitchNOSP controll will
+     * calculate the shortest path starting from the buffered messages.
+     * @param msg
+     */
+    public void receiveNOSP(NospMsg msg ){
         Node from = msg.getSender();
         if(nospBuffer.containsKey(from))
             nospBuffer.put(from, nospBuffer.get(from)+1);
         else
             nospBuffer.put(from, msg.getWeight());
-
-      /*  if(!nodeDistance.containsKey(from))
-            nodeDistance.put(from, cycle);*/
-
     }
 
 
