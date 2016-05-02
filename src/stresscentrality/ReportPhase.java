@@ -7,7 +7,6 @@ import peersim.core.Node;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class ReportPhase implements CDProtocol{
@@ -28,15 +27,24 @@ public class ReportPhase implements CDProtocol{
         CountPhase cp = (CountPhase)node.getProtocol(1);
         for(int j=0; j < linkable.degree(); j++) {
             Node peern = linkable.getNeighbor(j);
-            ReportPhase rp = (ReportPhase) peern.getProtocol(protocolID);
-            //CountPhase cp = (CountPhase) peern.getProtocol(protocolID);
+            ReportPhase rpPeern = (ReportPhase) peern.getProtocol(protocolID);
             for(Node s : cp.nodeDistance.keySet()) {
                 ReportMessage msg = new ReportMessage(s, node, cp.nodeDistance.get(s));
-                rp.receiveReport(peern, msg);
+                rpPeern.receiveReport(peern, msg);
             }
+            for(Node n: tableReport.keySetSender()){
+                try {
+                    for(Node m : tableReport.getTargets(n)) {
+                        ReportMessage msg = new ReportMessage(n, m, tableReport.getWeigth(n, m));
+                        rpPeern.receiveReport(peern, msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-            /*//send Report message to peern (old version sent shortesta path)
-            for (Node s : cp.spTable.keySet()) {
+            }
+            /*//send Report message to peern (old version sent shortest path)
+            for (Node s : cp.spTable.keySetSender()) {
                 rp.receiveReport(new ReportMessage(s, node, cp.spTable.get(s)));
             }*/
         }
@@ -55,32 +63,10 @@ public class ReportPhase implements CDProtocol{
                 tableReport.put(s, t, msg.weigth);
             }
             else{
-               // reportToSent.add(msg);
+               reportToSent.add(msg);
             }
-            /*else{
-                IdleProtocol linkable =  (IdleProtocol) receiver.getProtocol(0);
-                System.out.print(" sent broabacart");
-                for(int j=0; j < linkable.degree(); j++) {
-                    Node peern = linkable.getNeighbor(j);
-                    ReportPhase rp = (ReportPhase) peern.getProtocol(2);// ReportPhase
-                    rp.receiveReport(peern, msg);
-                }
-
-                }
-*/
 
         }
-            /*
-        if(!tableReport.contains(msg.sender, msg.target))
-            tableReport.put(msg.sender,msg.target,msg.weigth);*/
-       /*
-        if (tableReport.contains(s,v) && rp.tableReport.contains(v,t)) {
-            int sv = rp.tableReport.getWeigth(s,v);
-            int vt = rp.tableReport.getWeigth(v,t);
-            total += sv*vt;
-            System.out.print("\t (" + s.getID()+ " " + v.getID() + "|"+ t.getID()+")/"+sv+" "+vt);
-*/
-
 
     }
 

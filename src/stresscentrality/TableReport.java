@@ -54,7 +54,7 @@ public class TableReport {
         return ret;
     }
 
-    public Collection<Node> keySet(){
+    public Collection<Node> keySetSender(){
         return table.keySet();
     }
 
@@ -65,7 +65,7 @@ public class TableReport {
         st.append("[");
         for(Node s: table.keySet()){
             for(Node t: table.get(s).keySet())
-                st.append("("+s.getID()+":" +t.getID() +"=" + getWeigth(s,t) +")");
+                st.append("("+s.getID()+":" +t.getID() +"/" + getWeigth(s,t) +")");
         }
         st.append("]");
         return st.toString();

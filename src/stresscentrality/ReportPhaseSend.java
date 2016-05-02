@@ -1,6 +1,5 @@
 package stresscentrality;
 
-import messages.ReportMessage;
 import peersim.cdsim.CDProtocol;
 import peersim.core.IdleProtocol;
 import peersim.core.Node;
@@ -22,7 +21,7 @@ public class ReportPhaseSend implements CDProtocol{
             ReportPhase rp = (ReportPhase) peern.getProtocol(2);
             //send REPORT phase
             try {
-                for (Node sender : myrp.tableReport.keySet())
+                for (Node sender : myrp.tableReport.keySetSender())
                     for (Node target : myrp.tableReport.getTargets(sender)) {
                         //rp.receiveReport(new ReportMessage(sender, target, myrp.tableReport.getWeigth(sender, target)));
 

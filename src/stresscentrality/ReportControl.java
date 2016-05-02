@@ -30,7 +30,7 @@ public class ReportControl implements Control {
 		for(int n =0; n < Network.size(); n++) {
 			ReportPhase rp = ((ReportPhase) Network.get(n).getProtocol(protocolID));
 			IdleProtocol linkable =  (IdleProtocol) Network.get(n).getProtocol(0);
-            //for(Node node: rp.tableReport.keySet()){
+            //for(Node node: rp.tableReport.keySetSender()){
                 System.out.println("\tNode"+n+"(" +rp.tableReport.toString()+ ")");
             //}
 /*			for (int i = 0; i < Network.size(); i++) {
