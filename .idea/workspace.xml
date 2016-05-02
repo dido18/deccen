@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ffb00e51-5588-4d91-b674-14f3663854a7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/stresscentrality/FinalControl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/decen/stresscentrality/StressInit.class" afterPath="$PROJECT_DIR$/out/production/decen/stresscentrality/StressInit.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/run.cfg" afterPath="$PROJECT_DIR$/config/run.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stresscentrality/CountPhase.java" afterPath="$PROJECT_DIR$/src/stresscentrality/CountPhase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stresscentrality/ReportPhase.java" afterPath="$PROJECT_DIR$/src/stresscentrality/ReportPhase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stresscentrality/StressInit.java" afterPath="$PROJECT_DIR$/src/stresscentrality/StressInit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/stresscentrality/SwitchNospControl.java" afterPath="$PROJECT_DIR$/src/stresscentrality/SwitchNospControl.java" />
-    </list>
+    <list default="true" id="ffb00e51-5588-4d91-b674-14f3663854a7" name="Default" comment="" />
     <ignored path="decen.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -663,12 +654,12 @@
       <workItem from="1462028358195" duration="5997000" />
       <workItem from="1462089287807" duration="1989000" />
       <workItem from="1462170282358" duration="2003000" />
-      <workItem from="1462172542399" duration="11788000" />
+      <workItem from="1462172542399" duration="11895000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38243000" />
+    <option name="totallyTimeSpent" value="38350000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1366" height="741" extended-state="6" />
