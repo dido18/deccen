@@ -20,13 +20,14 @@ public class SwitchNospControl implements Control {
 	}
 
 	public boolean execute() {
-		System.out.println("");
 		for(int i =0; i < Network.size(); i++){
 			CountPhase sc = ((CountPhase) Network.get(i).getProtocol(protocolID));
 
             for(Node n :sc.nospBuffer.keySet()){
                 if(!sc.spTable.containsKey(n)) //IT'S NOT A BACKFIRING MESSAGE
-                    sc.spTable.put(n , sc.nospBuffer.get(n));
+                    sc.spTable.put(n, sc.nospBuffer.get(n));
+				if(!sc.nodeDistance.containsKey(n))
+					sc.nodeDistance.put(n,sc.cycle);
             }
             System.out.print("\nNode "+i+ " ");
             for(Node n: sc.spTable.keySet()){

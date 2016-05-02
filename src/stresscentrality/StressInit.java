@@ -39,7 +39,7 @@ public class StressInit implements Control{
         for (int i = 0; i < Network.size(); i++) { 
         	Node n = Network.get(i);
         	IdleProtocol linkable =  (IdleProtocol) Network.get(i).getProtocol(0);
-        	if(i==0){// only for testing starting with only one node
+        	if(i==1) {//  || i ==1){// only for testing starting with only one node
 				if (linkable.degree() > 0){
 					System.out.print("\nnode "+n.getID() +" ->");
 					for(int j=0; j < linkable.degree(); j++){

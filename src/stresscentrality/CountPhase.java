@@ -4,20 +4,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import messages.NospMsg;
+import peersim.Simulator;
 import peersim.cdsim.CDProtocol;
 import peersim.core.IdleProtocol;
 
+import peersim.core.Network;
 import peersim.core.Node;
 
 
 public class CountPhase implements CDProtocol{
 
-	public HashMap<Node, Integer> nospBuffer;
-    public HashMap<Node,Integer> spTable;
+	public HashMap<Node, Integer> nospBuffer;  // bugffer og the recieved NOSP msg, in order to sum from the same source id.
+    public HashMap<Node,Integer> spTable;   //store the number of sorthest path to any node
+    public HashMap<Node, Long> nodeDistance; //store the distance of all the nodes inthe network
+    public long cycle;  //# number of cycles -> distance from the node
 	
 	public CountPhase(String prefix){
-		nospBuffer = new HashMap<>();
-        spTable = new HashMap<>();
+        init();
 	}
 
     /**
@@ -26,6 +29,7 @@ public class CountPhase implements CDProtocol{
      * @param protocolID    the protocol ID
      */
   	public void nextCycle(Node node, int protocolID) {
+        cycle += 1;
         //System.out.println("node "+ node.getID()+ " :"+nospBuffer.values().toString());
         IdleProtocol linkable =  (IdleProtocol) node.getProtocol(0);
         for(int j=0; j < linkable.degree(); j++) {
@@ -38,6 +42,8 @@ public class CountPhase implements CDProtocol{
             }
         }
 
+
+
 	}
 
     //receive msg of the count phase
@@ -48,6 +54,10 @@ public class CountPhase implements CDProtocol{
             nospBuffer.put(from, nospBuffer.get(from)+1);
         else
             nospBuffer.put(from, msg.getWeight());
+
+      /*  if(!nodeDistance.containsKey(from))
+            nodeDistance.put(from, cycle);*/
+
     }
 
 
@@ -55,6 +65,8 @@ public class CountPhase implements CDProtocol{
     public void init(){
         nospBuffer = new HashMap<>();
         spTable = new HashMap<>();
+        nodeDistance = new HashMap<>();
+        cycle =1;
     }
 
     /**

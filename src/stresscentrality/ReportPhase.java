@@ -39,7 +39,7 @@ public class ReportPhase implements CDProtocol{
 
         if(!tableReport.contains(msg.sender, msg.target))
             tableReport.put(msg.sender,msg.target,msg.weigth);
-//        else
+
 
 
     }
