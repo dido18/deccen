@@ -1,14 +1,13 @@
 package stresscentrality;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import messages.NospMsg;
-import peersim.Simulator;
+import messages.NospMessage;
 import peersim.cdsim.CDProtocol;
+import peersim.config.FastConfig;
 import peersim.core.IdleProtocol;
 
-import peersim.core.Network;
+import peersim.core.Linkable;
 import peersim.core.Node;
 
 
@@ -30,13 +29,15 @@ public class CountPhase implements CDProtocol{
      */
   	public void nextCycle(Node node, int protocolID) {
         cycle += 1;
-        IdleProtocol linkable =  (IdleProtocol) node.getProtocol(0);
+        int linkableID = FastConfig.getLinkable(protocolID);
+        Linkable linkable = (Linkable)node.getProtocol(linkableID);
+       // IdleProtocol linkable =  (IdleProtocol) node.getProtocol(0);
         for(int j=0; j < linkable.degree(); j++) {
             Node peern = linkable.getNeighbor(j);
             for (Node k : spTable.keySet()) {
                 if (peern.getID() != k.getID()) {
                     CountPhase sc = (CountPhase) peern.getProtocol(protocolID);
-                    sc.receiveNOSP(new NospMsg(k, spTable.get(k)));
+                    sc.receiveNOSP(new NospMessage(k, spTable.get(k)));
                 }
             }
         }
@@ -47,7 +48,7 @@ public class CountPhase implements CDProtocol{
      * calculate the shortest path starting from the buffered messages.
      * @param msg
      */
-    public void receiveNOSP(NospMsg msg ){
+    public void receiveNOSP(NospMessage msg ){
         Node from = msg.getSender();
         if(nospBuffer.containsKey(from))
             nospBuffer.put(from, nospBuffer.get(from)+1);

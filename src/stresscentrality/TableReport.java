@@ -1,6 +1,5 @@
 package stresscentrality;
 
-import javafx.scene.NodeBuilder;
 import peersim.core.Node;
 
 import java.util.Collection;

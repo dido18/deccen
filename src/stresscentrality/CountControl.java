@@ -3,7 +3,7 @@ package stresscentrality;
 import peersim.config.Configuration;
 import peersim.core.*;
 
-public class SwitchNospControl implements Control {
+public class CountControl implements Control {
 	// IN event based can be used to react to some events (incoming messages)
 	
 	// ------------------------------------------------------------------------
@@ -15,12 +15,12 @@ public class SwitchNospControl implements Control {
 	// ------------------------------------------------------------------------
 	private final int protocolID;
 	
-	public SwitchNospControl(String prefix){
+	public CountControl(String prefix){
 		protocolID = Configuration.getInt(prefix+"."+PAR_PROT);
 	}
 
 	/**
-	 * Claculate the number of shortest path and calculate the distance between nodes.
+	 * Calculate the number of shortest path and  the distance between nodes.
 	 * From the NOSP buffered messages received calculate the number of shortest path.
 	 * Sum all the NOSP messages received fro the same source in orde to get the
 	 * number of shortest path.
@@ -38,10 +38,11 @@ public class SwitchNospControl implements Control {
             }
             System.out.print("\n \tNode "+i+ ": ");
             for(Node n: sc.spTable.keySet()){
-                System.out.print("("+n.getID()+":"+sc.spTable.get(n)+")");
+                System.out.print("("+n.getID()+":"+sc.spTable.get(n)+"{"+sc.nodeDistance.get(n)+"})");
             }
 		}
 		System.out.print("\n}");
+
 		return false;
 	}
 

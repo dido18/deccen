@@ -2,13 +2,13 @@ package messages;
 
 import peersim.core.Node;
 
-public class NospMsg {
+public class NospMessage {
 	 /** If not null,
     this has to be answered, otherwise this is the answer. */
 	public Node sender; 
 	private int weight;  //shortest path
 	
-	public NospMsg(Node sender, int sp){
+	public NospMessage(Node sender, int sp){
 		this.sender = sender;
 		this.weight=sp;
 	}
