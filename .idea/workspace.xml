@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ffb00e51-5588-4d91-b674-14f3663854a7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/reportgraph" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/run.cfg" afterPath="$PROJECT_DIR$/config/run.cfg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/out.dolphins" afterPath="$PROJECT_DIR$/resources/out.dolphins" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/papergraph" afterPath="$PROJECT_DIR$/resources/papergraph" />
     </list>
     <ignored path="decen.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,7 +29,7 @@
         <entry file="file://$PROJECT_DIR$/config/run.cfg">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="36">
-              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+              <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -643,12 +639,12 @@
       <workItem from="1462191233127" duration="5606000" />
       <workItem from="1462205487719" duration="1051000" />
       <workItem from="1462207742371" duration="8120000" />
-      <workItem from="1462262007504" duration="2513000" />
+      <workItem from="1462262007504" duration="2662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55640000" />
+    <option name="totallyTimeSpent" value="55789000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2390" y="0" width="1280" height="1024" extended-state="6" />
@@ -1133,7 +1129,7 @@
     <entry file="file://$PROJECT_DIR$/config/run.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
-          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <caret line="2" column="10" selection-start-line="2" selection-start-column="10" selection-end-line="2" selection-end-column="10" />
           <folding />
         </state>
       </provider>
