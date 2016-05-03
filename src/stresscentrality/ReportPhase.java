@@ -2,29 +2,33 @@ package stresscentrality;
 
 import messages.ReportMessage;
 import peersim.cdsim.CDProtocol;
+import peersim.config.Configuration;
+import peersim.config.FastConfig;
 import peersim.core.IdleProtocol;
+import peersim.core.Linkable;
 import peersim.core.Node;
 
-
-import java.util.ArrayList;
 
 
 public class ReportPhase implements CDProtocol{
 
+    private static final String COUNT_PROT = "protocol";
+    private final int protocol;
+
     //N^2 data structure that store all the report messages received
     public TableReport tableReport;
 
-    public ArrayList<ReportMessage> reportToSent;
-
     public ReportPhase(String prefix){
+        protocol = Configuration.getInt(prefix+"."+COUNT_PROT);
         init();
 	}
 
 
   	public void nextCycle(Node node, int protocolID) {
 
-        IdleProtocol linkable =  (IdleProtocol) node.getProtocol(0);
-        CountPhase cp = (CountPhase)node.getProtocol(1);
+        int linkableID = FastConfig.getLinkable(protocolID);
+        Linkable linkable = (Linkable)node.getProtocol(linkableID);
+        CountPhase cp = (CountPhase)node.getProtocol(protocol);
         for(int j=0; j < linkable.degree(); j++) {
             Node peern = linkable.getNeighbor(j);
             ReportPhase rpPeern = (ReportPhase) peern.getProtocol(protocolID);
@@ -43,10 +47,6 @@ public class ReportPhase implements CDProtocol{
                 }
 
             }
-            /*//send Report message to peern (old version sent shortest path)
-            for (Node s : cp.spTable.keySetSender()) {
-                rp.receiveReport(new ReportMessage(s, node, cp.spTable.get(s)));
-            }*/
         }
 
 
@@ -62,10 +62,6 @@ public class ReportPhase implements CDProtocol{
                 //System.out.print("\nnode " + receiver.getID() + ": is contributing (" + s.getID() + " " + t.getID() + ")");
                 tableReport.put(s, t, msg.weigth);
             }
-            else{
-             //  reportToSent.add(msg);
-            }
-
         }
 
     }
@@ -73,7 +69,6 @@ public class ReportPhase implements CDProtocol{
 	
     public void init(){
         tableReport = new TableReport();
-        reportToSent = new ArrayList<>();
     }
 
     /**

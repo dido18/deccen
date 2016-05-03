@@ -44,7 +44,7 @@ public class CountPhase implements CDProtocol{
 	}
 
     /**
-     * PPut the received NOSP messsages in  buffer. The SwitchNOSP controll will
+     * Put the received NOSP messsages in  buffer. The SwitchNOSP controll will
      * calculate the shortest path starting from the buffered messages.
      * @param msg
      */
