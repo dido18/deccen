@@ -4,15 +4,9 @@ import peersim.config.Configuration;
 import peersim.core.*;
 
 public class CountControl implements Control {
-	// IN event based can be used to react to some events (incoming messages)
-	
-	// ------------------------------------------------------------------------
-	// Parameters
-	// ------------------------------------------------------------------------
+
 	private static final String PAR_PROT = "protocol";
-	// ------------------------------------------------------------------------
-	// Fields
-	// ------------------------------------------------------------------------
+
 	private final int protocolID;
 	
 	public CountControl(String prefix){
@@ -31,9 +25,9 @@ public class CountControl implements Control {
 		for(int i =0; i < Network.size(); i++){
 			CountPhase sc = ((CountPhase) Network.get(i).getProtocol(protocolID));
             for(Node n :sc.nospBuffer.keySet()){
-                if(!sc.spTable.containsKey(n)) //IT'S NOT A BACKFIRING MESSAGE
+                if(!sc.spTable.containsKey(n)) //IF IT'S NOT A BACKFIRING MESSAGE
                     sc.spTable.put(n, sc.nospBuffer.get(n));
-				if(!sc.nodeDistance.containsKey(n))
+				if(!sc.nodeDistance.containsKey(n)) //update distance if not already received
 					sc.nodeDistance.put(n,sc.cycle);
             }
             System.out.print("\n \tNode "+i+ ": ");

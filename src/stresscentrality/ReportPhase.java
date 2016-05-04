@@ -18,6 +18,7 @@ public class ReportPhase implements CDProtocol{
     //N^2 data structure that store all the report messages received
     public TableReport tableReport;
 
+    public long numReport =0L;
     public ReportPhase(String prefix){
         protocol = Configuration.getInt(prefix+"."+COUNT_PROT);
         init();
@@ -53,7 +54,7 @@ public class ReportPhase implements CDProtocol{
         }
 
     public void receiveReport(Node receiver, ReportMessage msg){
-
+        numReport++;
         CountPhase cp = (CountPhase)receiver.getProtocol(1);
         Node s = msg.sender;
         Node t = msg.target;

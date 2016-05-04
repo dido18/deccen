@@ -17,7 +17,9 @@ public class CountPhase implements CDProtocol{
     public HashMap<Node,Integer> spTable;   //store the number of sorthest path to any node
     public HashMap<Node, Long> nodeDistance; //store the distance of all the nodes in the network
     public long cycle;  //# number of cycles -> distance from the node
-	
+
+    public long numNOSP=0L;
+
 	public CountPhase(String prefix){
         init();
 	}
@@ -49,6 +51,7 @@ public class CountPhase implements CDProtocol{
      * @param msg
      */
     public void receiveNOSP(NospMessage msg ){
+        numNOSP++; //for plots and statistics
         Node from = msg.getSender();
         if(nospBuffer.containsKey(from))
             nospBuffer.put(from, nospBuffer.get(from)+1);
