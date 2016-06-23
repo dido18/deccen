@@ -61,12 +61,12 @@ public class TableReport {
     @Override
     public String toString() {
         StringBuilder st = new StringBuilder();
-        st.append("[");
+        //st.append("[");
         for(Node s: table.keySet()){
             for(Node t: table.get(s).keySet())
                 st.append("("+s.getID()+":" +t.getID() +"/" + getWeigth(s,t) +")");
         }
-        st.append("]");
+        //st.append("]");
         return st.toString();
     }
 }

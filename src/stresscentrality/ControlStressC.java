@@ -23,7 +23,7 @@ public class ControlStressC implements Control {
 
 	public boolean execute() {
 
-		long sumSCs=0;
+		long sumSCs=0; ///sum of the
 		long cycle = 0L;
 		for(int n =0; n < Network.size(); n++) {
             Node v = Network.get(n);

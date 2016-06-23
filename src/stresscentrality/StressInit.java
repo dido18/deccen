@@ -38,7 +38,7 @@ public class StressInit implements Control{
         	Node n = Network.get(i);
 			int linkableID = FastConfig.getLinkable(1);
 			Linkable linkable = (Linkable)Network.get(i).getProtocol(linkableID);
-       // if(i==1 ||  i==2)// only for testing starting with only few nodes
+            //if(i==0)// only for testing starting with only few nodes
 				if (linkable.degree() > 0){
 					for(int j=0; j < linkable.degree(); j++){
 					   Node peern = linkable.getNeighbor(j);

@@ -1,0 +1,11 @@
+#nodeID  neighbour. Graph structure of the paper. (0=a, 1=b,..., 4=e)
+0 1
+0 3
+1 0
+1 2
+2 1
+2 3
+3 0
+3 2
+3 4
+4 3

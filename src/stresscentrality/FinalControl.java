@@ -21,12 +21,12 @@ public class FinalControl implements Control {
 	}
 
 	public boolean execute() {
-		System.out.print("\nFinal Control {");
+		System.out.print("\n[Final Control] {");
 		for(int n =0; n < Network.size(); n++) {
             Node v = Network.get(n);
 			ReportPhase rp = ((ReportPhase) Network.get(n).getProtocol(protocolReport));
 			CountPhase cp = ((CountPhase) Network.get(n).getProtocol(protocolCount));
-            System.out.print(" \n SC (" + n + "):");
+            System.out.print(" \n Cs(" + n + ")=");
             long total = 0;
 			for (int i = 0; i < Network.size(); i++) {
 				for (int j = 0; j < Network.size(); j++) {

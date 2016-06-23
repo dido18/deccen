@@ -15,7 +15,7 @@ public class ReportPhase implements CDProtocol{
     private static final String COUNT_PROT = "protocol";
     private final int protocol;
 
-    //N^2 data structure that store all the report messages received
+    // N^2 data structure that store all the report messages received
     public TableReport tableReport;
 
     public long numReport =0L;
@@ -29,7 +29,7 @@ public class ReportPhase implements CDProtocol{
 
         int linkableID = FastConfig.getLinkable(protocolID);
         Linkable linkable = (Linkable)node.getProtocol(linkableID);
-        CountPhase cp = (CountPhase)node.getProtocol(protocol);
+        CountPhase cp = (CountPhase)node.getProtocol(protocol);  // for
         for(int j=0; j < linkable.degree(); j++) {
             Node peern = linkable.getNeighbor(j);
             ReportPhase rpPeern = (ReportPhase) peern.getProtocol(protocolID);

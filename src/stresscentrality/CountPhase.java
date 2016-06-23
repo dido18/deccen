@@ -12,13 +12,17 @@ import peersim.core.Node;
 
 
 public class CountPhase implements CDProtocol{
+    /*
 
-	public HashMap<Node, Integer> nospBuffer;  // bugffer og the recieved NOSP msg, in order to sum from the same source id.
-    public HashMap<Node,Integer> spTable;   //store the number of sorthest path to any node
-    public HashMap<Node, Long> nodeDistance; //store the distance of all the nodes in the network
-    public long cycle;  //# number of cycles -> distance from the node
 
-    public long numNOSP=0L;
+     */
+
+	public HashMap<Node, Integer> nospBuffer;  // Number of NOSP message received with the same source ID(s) (sum of all mes received from the same source node)
+    public HashMap<Node, Integer> spTable;     // store the number of sorthest path to any node.
+    public HashMap<Node, Long> nodeDistance;   // store the distance of all the nodes in the network.
+    public long cycle;                         // #number of cycles -> distance from the node when receive message
+
+    public long numNOSP = 0L;  //for plotting and statistics
 
 	public CountPhase(String prefix){
         init();
@@ -37,7 +41,7 @@ public class CountPhase implements CDProtocol{
         for(int j=0; j < linkable.degree(); j++) {
             Node peern = linkable.getNeighbor(j);
             for (Node k : spTable.keySet()) {
-                if (peern.getID() != k.getID()) {
+                if (peern.getID() != k.getID()) { //not send to itself
                     CountPhase sc = (CountPhase) peern.getProtocol(protocolID);
                     sc.receiveNOSP(new NospMessage(k, spTable.get(k)));
                 }
@@ -46,8 +50,7 @@ public class CountPhase implements CDProtocol{
 	}
 
     /**
-     * Put the received NOSP messsages in  buffer. The SwitchNOSP controll will
-     * calculate the shortest path starting from the buffered messages.
+     *
      * @param msg
      */
     public void receiveNOSP(NospMessage msg ){
@@ -56,7 +59,7 @@ public class CountPhase implements CDProtocol{
         if(nospBuffer.containsKey(from))
             nospBuffer.put(from, nospBuffer.get(from)+1);
         else
-            nospBuffer.put(from, msg.getWeight());
+            nospBuffer.put(from, msg.getWeight()); // weigth == number of shortest path from the source s
     }
 
 

@@ -16,12 +16,12 @@ public class ReportControl implements Control {
 	}
 
 	public boolean execute() {
-		System.out.print("\nReport control, contributing message {\n");
+		/*System.out.print("\n\n[ReportControl] node x: (source:target/distance(s,t){\n");
 		for(int n =0; n < Network.size(); n++) {
 			ReportPhase rp = ((ReportPhase) Network.get(n).getProtocol(protocolID));
-			System.out.println("\tNode"+n+"(" +rp.tableReport.toString()+ ")");
+			System.out.println("\tNode "+n+": " +rp.tableReport.toString());
 		}
-		System.out.print("}");
+		System.out.print("}");*/
 		return false;
 	}
 

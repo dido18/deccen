@@ -9,7 +9,7 @@ import peersim.core.Node;
 public class ReportMessage {
     public Node sender;
     public Node target;
-    public long  weigth;  // d(s,t) distance between sender and t
+    public long  weigth;  //d(s,t) distance between sender and t
 
     public ReportMessage(Node s, Node t, long w){
         sender= s;
