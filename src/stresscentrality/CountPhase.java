@@ -8,7 +8,8 @@ import peersim.config.FastConfig;
 import peersim.core.IdleProtocol;
 
 import peersim.core.Linkable;
-import peersim.core.Node;
+import peersim.core.*;
+import peersim.cdsim.CDState;
 
 
 public class CountPhase implements CDProtocol{
@@ -27,6 +28,16 @@ public class CountPhase implements CDProtocol{
 	public CountPhase(String prefix){
         init();
 	}
+
+
+    public void init(){
+        nospBuffer = new HashMap<>();
+        spTable = new HashMap<>();
+        nodeDistance = new HashMap<>();
+        cycle = 1;
+
+    }
+
 
     /**
      *
@@ -62,14 +73,6 @@ public class CountPhase implements CDProtocol{
             nospBuffer.put(from, msg.getWeight()); // weigth == number of shortest path from the source s
     }
 
-
-	
-    public void init(){
-        nospBuffer = new HashMap<>();
-        spTable = new HashMap<>();
-        nodeDistance = new HashMap<>();
-        cycle =1;
-    }
 
     /**
 	 * This is the default mechanism of peersim to create 

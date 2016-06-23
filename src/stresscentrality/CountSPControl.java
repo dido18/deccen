@@ -1,7 +1,10 @@
 package stresscentrality;
 
+import peersim.cdsim.CDState;
 import peersim.config.Configuration;
 import peersim.core.*;
+
+import javax.swing.text.html.CSS;
 
 public class CountSPControl implements Control {
 
@@ -21,19 +24,22 @@ public class CountSPControl implements Control {
 	 * @return
      */
 	public boolean execute() {
-		//System.out.print("\n\n[CountSPControl] node x: (peern : num_sp $ distance) {");
+		;
+		System.out.print("\n\n["+ CDState.getCycle()+"]-CountSPControl - node x: (peern : num_sp $ distance) {");
 		for(int i =0; i < Network.size(); i++){
 			CountPhase sc = ((CountPhase) Network.get(i).getProtocol(protocolID));
+
             for(Node n :sc.nospBuffer.keySet()){
-                if(!sc.spTable.containsKey(n))    //IF IT'S NOT A BACKFIRING MESSAGE
+                if(!sc.spTable.containsKey(n))        //IF IT'S NOT A BACKFIRING MESSAGE
                     sc.spTable.put(n, sc.nospBuffer.get(n));
-				if(!sc.nodeDistance.containsKey(n)) //update distance if not already received
-					sc.nodeDistance.put(n,sc.cycle);
+				if(!sc.nodeDistance.containsKey(n)) {  // update distance if not already received
+					sc.nodeDistance.put(n, sc.cycle);
+				}
             }
-            /*System.out.print("\n \tNode "+i+ ": ");
+            System.out.print("\n \tNode "+i+ " -> ");
             for(Node n: sc.spTable.keySet()){
-                System.out.print("("+n.getID()+":"+sc.spTable.get(n)+"$"+sc.nodeDistance.get(n)+")");
-            }*/
+                System.out.print("("+n.getID()+" #sp="+sc.spTable.get(n)+" d="+sc.nodeDistance.get(n)+") ");
+            }
 		}
 		System.out.print("\n}");
 

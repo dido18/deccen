@@ -1,6 +1,7 @@
 package stresscentrality;
 
 import messages.NospMessage;
+import peersim.cdsim.CDState;
 import peersim.config.Configuration;
 import peersim.config.FastConfig;
 import peersim.core.*;
@@ -33,8 +34,8 @@ public class StressInit implements Control{
     public boolean execute() {
         
         int sp = 1;
-     
-        for (int i = 0; i < Network.size(); i++) { 
+
+		for (int i = 0; i < Network.size(); i++) {
         	Node n = Network.get(i);
 			int linkableID = FastConfig.getLinkable(1);
 			Linkable linkable = (Linkable)Network.get(i).getProtocol(linkableID);

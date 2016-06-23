@@ -1,9 +1,13 @@
 package stresscentrality;
 
+import peersim.cdsim.CDProtocol;
+import peersim.cdsim.CDSimulator;
+import peersim.cdsim.CDState;
 import peersim.config.Configuration;
 import peersim.core.Control;
 import peersim.core.Network;
 import peersim.core.Node;
+import peersim.edsim.CDScheduler;
 
 public class FinalControl implements Control {
 
@@ -21,12 +25,12 @@ public class FinalControl implements Control {
 	}
 
 	public boolean execute() {
-		System.out.print("\n[Final Control] {");
+		StringBuilder sb = new StringBuilder();
+		sb.append("\n["+CDState.getCycle()+"]-Final Control- {" );
 		for(int n =0; n < Network.size(); n++) {
             Node v = Network.get(n);
 			ReportPhase rp = ((ReportPhase) Network.get(n).getProtocol(protocolReport));
 			CountPhase cp = ((CountPhase) Network.get(n).getProtocol(protocolCount));
-            System.out.print(" \n Cs(" + n + ")=");
             long total = 0;
 			for (int i = 0; i < Network.size(); i++) {
 				for (int j = 0; j < Network.size(); j++) {
@@ -39,10 +43,10 @@ public class FinalControl implements Control {
                         }
 				}
 			}
-			System.out.print(total);
+			sb.append("Cs(" + n + ")="+total+", ");
 		}
-		System.out.print("\n}");
-
+		sb.append("}");
+		System.out.print(sb);
 		return false;
 	}
 
