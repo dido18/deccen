@@ -7,6 +7,11 @@ import peersim.config.FastConfig;
 import peersim.core.*;
 
 public class StressInit implements Control{
+	/**
+	 *  Sends the initial value of the Number Of Shortest Path (sp=1) to all the neihgbours.
+	 *  One beacuse there is only one shortest path from a node to itself.
+	 */
+
 
 	// Parameters
     // ------------------------------------------------------------------------
@@ -24,28 +29,21 @@ public class StressInit implements Control{
     public StressInit(String prefix) {
         pid = Configuration.getPid(prefix + "." + PAR_PROT);
     }
-    
-    // ------------------------------------------------------------------------
-    // Methods
-    // ------------------------------------------------------------------------
-    /**
-     *  Sends the initial value of shortest path (sp) to all the neihbours.
-     */
-    public boolean execute() {
-        
-        int sp = 1;
 
+
+    public boolean execute() {
+        int sp = 1;
 		for (int i = 0; i < Network.size(); i++) {
         	Node n = Network.get(i);
 			int linkableID = FastConfig.getLinkable(1);
-			Linkable linkable = (Linkable)Network.get(i).getProtocol(linkableID);
+			Linkable linkable = (Linkable) Network.get(i).getProtocol(linkableID);
             //if(i==0)// only for testing starting with only few nodes
 				if (linkable.degree() > 0){
 					for(int j=0; j < linkable.degree(); j++){
 					   Node peern = linkable.getNeighbor(j);
 					   if(!peern.isUp()) return false;
-						CountPhase scPeer = (CountPhase) peern.getProtocol(1);
-						scPeer.receiveNOSP(new NospMessage(n,sp));
+							CountPhase scPeer = (CountPhase) peern.getProtocol(1);
+							scPeer.receiveNOSP(new NospMessage(n,sp));
 					}}
         	}
    	 //}

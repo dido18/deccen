@@ -1,5 +1,6 @@
 package stresscentrality;
 
+import peersim.cdsim.CDState;
 import peersim.config.Configuration;
 import peersim.core.Control;
 import peersim.core.Network;
@@ -26,7 +27,7 @@ public class LogMessages implements Control {
 
 	public boolean execute() {
 
-		long cycle = 0L;
+		//long cycle = 0L;
 		long numNosp=0L;
 		long numControl=0L;
 		for(int n =0; n < Network.size(); n++) {
@@ -35,9 +36,9 @@ public class LogMessages implements Control {
 			CountPhase cp = ((CountPhase) v.getProtocol(1));
 			numNosp += cp.numNOSP;
 			numControl += rp.numReport;
-			cycle = cp.cycle;
+			//cycle = cp.cycle;
 		}
-		String log = "("+cycle+","+numNosp+numControl+")";
+		String log = "("+ CDState.getCycle()+","+numNosp+numControl+")";
 
 		writeIntoFile(log);
 

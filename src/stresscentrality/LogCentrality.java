@@ -1,5 +1,6 @@
 package stresscentrality;
 
+import peersim.cdsim.CDState;
 import peersim.config.Configuration;
 import peersim.core.Control;
 import peersim.core.Network;
@@ -17,6 +18,7 @@ public class LogCentrality implements Control {
         pathFile = Configuration.getString(prefix+"."+FILE_PATH);
 		SimpleDateFormat time_formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String current_time_str = time_formatter.format(System.currentTimeMillis());
+		writeIntoFile("\nTime of execution -  (cycle, sum of centralities)");
 		writeIntoFile("\n"+ current_time_str+" - ");
 
 	}
@@ -24,7 +26,7 @@ public class LogCentrality implements Control {
 	public boolean execute() {
 
 		long sumSCs=0; ///sum of the
-		long cycle = 0L;
+		//long cycle = 0L;
 		for(int n =0; n < Network.size(); n++) {
             Node v = Network.get(n);
 			ReportPhase rp = ((ReportPhase) v.getProtocol(2));
@@ -42,9 +44,9 @@ public class LogCentrality implements Control {
 				}
 			}
 			sumSCs +=tempTotal;
-			cycle = cp.cycle;
+			//cycle = cp.cycle;
 		}
-		String log = "("+cycle+","+sumSCs+")";
+		String log = "("+ CDState.getCycle()+","+sumSCs+")";
 
 		writeIntoFile(log);
 
