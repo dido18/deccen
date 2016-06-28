@@ -1,6 +1,7 @@
 
 out/
 lib/
+venv/
 
 .metadata
 bin/
