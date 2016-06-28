@@ -71,6 +71,7 @@ public class ReportPhase implements CDProtocol{
 	
     public void init(){
         tableReport = new TableReport();
+        numReport =0L;
     }
 
     /**

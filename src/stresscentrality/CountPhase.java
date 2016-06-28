@@ -14,8 +14,8 @@ import peersim.cdsim.CDState;
 
 public class CountPhase implements CDProtocol{
 
-	public HashMap<Node, Integer> nospBuffer;  // Number of NOSP message received with the same source ID(s) (sum of all mes received from the same source node)
-    public HashMap<Node, Integer> spTable;     // store the number of sorthest path to any node.
+	public HashMap<Node, Integer> nospBuffer;  // Number of NOSP message received with the same source ID(s) (sum of all mess. received from the same source node)
+    public HashMap<Node, Integer> spTable;     // store the number of shorthest path to any node.
     public HashMap<Node, Long> nodeDistance;   // store the distance of all the nodes in the network.
     public long cycle;                         // #number of cycles -> distance from the node when receive message
 
@@ -31,6 +31,7 @@ public class CountPhase implements CDProtocol{
         spTable = new HashMap<>();
         nodeDistance = new HashMap<>();
         cycle = 1;
+        numNOSP = 0L;
 
     }
 
@@ -49,8 +50,8 @@ public class CountPhase implements CDProtocol{
             Node peern = linkable.getNeighbor(j);
             for (Node k : spTable.keySet()) {
                 if (peern.getID() != k.getID()) { // not send to itself
-                    CountPhase sc = (CountPhase) peern.getProtocol(protocolID);
-                    sc.receiveNOSP(new NospMessage(k, spTable.get(k)));
+                    CountPhase scPeern = (CountPhase) peern.getProtocol(protocolID);
+                    scPeern.receiveNOSP(new NospMessage(k, spTable.get(k)));
                 }
             }
         }
@@ -63,10 +64,12 @@ public class CountPhase implements CDProtocol{
     public void receiveNOSP(NospMessage msg){
         numNOSP++;
         Node from = msg.getSender();
-        if(nospBuffer.containsKey(from))
-            nospBuffer.put(from, nospBuffer.get(from)+1);
+        if(nospBuffer.containsKey(from)) {
+            //nospBuffer.put(from, nospBuffer.get(from) + 1); //old version
+            nospBuffer.put(from, nospBuffer.get(from) + msg.getWeight());
+        }
         else
-            nospBuffer.put(from, msg.getWeight()); // weigth == number of shortest path from the source s
+            nospBuffer.put(from, msg.getWeight()); // weigth == number of shortest path from the node "from"
     }
 
 

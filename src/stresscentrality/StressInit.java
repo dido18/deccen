@@ -38,13 +38,12 @@ public class StressInit implements Control{
 			int linkableID = FastConfig.getLinkable(1);
 			Linkable linkable = (Linkable) Network.get(i).getProtocol(linkableID);
             //if(i==0)// only for testing starting with only few nodes
-				if (linkable.degree() > 0){
 					for(int j=0; j < linkable.degree(); j++){
 					   Node peern = linkable.getNeighbor(j);
 					   if(!peern.isUp()) return false;
-							CountPhase scPeer = (CountPhase) peern.getProtocol(1);
-							scPeer.receiveNOSP(new NospMessage(n,sp));
-					}}
+							CountPhase scPeern = (CountPhase) peern.getProtocol(1);
+							scPeern.receiveNOSP(new NospMessage(n,sp));
+					}
         	}
    	 //}
 		return false;

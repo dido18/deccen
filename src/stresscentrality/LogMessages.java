@@ -55,7 +55,7 @@ public class LogMessages implements Control {
             bw.write(s);
             bw.close();
 		} catch (IOException e) {
-			System.err.println("Problem writing to the file"+pathFile);
+			System.err.println("Problem writing to the file "+pathFile);
 		}
 	}
 

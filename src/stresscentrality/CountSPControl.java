@@ -29,17 +29,19 @@ public class CountSPControl implements Control {
 		for(int i =0; i < Network.size(); i++){
 			CountPhase sc = ((CountPhase) Network.get(i).getProtocol(protocolID));
 
-            for(Node n :sc.nospBuffer.keySet()){
+            for(Node n: sc.nospBuffer.keySet()){
                 if(!sc.spTable.containsKey(n))        //IF IT'S NOT A BACKFIRING MESSAGE
                     sc.spTable.put(n, sc.nospBuffer.get(n));
 				if(!sc.nodeDistance.containsKey(n)) {  // update distance if not already received
 					sc.nodeDistance.put(n, sc.cycle);
 				}
             }
-            System.out.print("\n \tNode "+i+ " -> ");
-            for(Node n: sc.spTable.keySet()){
-                System.out.print("("+n.getID()+" #sp="+sc.spTable.get(n)+" d="+sc.nodeDistance.get(n)+") ");
-            }
+			if(!sc.spTable.isEmpty()) {
+				System.out.print("\n \tNode " + i + " -> ");
+				for (Node n : sc.spTable.keySet()) {
+					System.out.print("(" + n.getID() + " #sp=" + sc.spTable.get(n) + " d=" + sc.nodeDistance.get(n) + ") ");
+				}
+			}
 		}
 		System.out.print("\n}");
 

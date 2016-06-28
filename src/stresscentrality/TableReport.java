@@ -30,7 +30,7 @@ public class TableReport {
         if(table.containsKey(sender))
             return table.get(sender).keySet();
         else
-            throw new Exception("THe list is emty");
+            throw new Exception("THe list is empty");
     }
 
     public void put( Node s, Node t, Long w){

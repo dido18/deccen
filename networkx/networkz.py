@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import networkx as nx
 
 
@@ -8,11 +8,33 @@ import networkx as nx
 
 # graph structure example presensted in the paper
 G=nx.Graph()
+"""
 G.add_edge('A', 'B', weight=1)
 G.add_edge('A', 'D', weight=1)
 G.add_edge('B', 'C', weight=1)
 G.add_edge('D', 'C', weight=1)
 G.add_edge('D', 'E', weight=1)
+
+"""
+
+#http://devblogs.nvidia.com/parallelforall/wp-content/uploads/2014/07/BC_example_scores.png
+G.add_edge(1, 2, weight=1)
+G.add_edge(1, 3, weight=1)
+G.add_edge(1, 4, weight=1)
+G.add_edge(2, 3, weight=1)
+G.add_edge(3, 4, weight=1)
+G.add_edge(4, 5, weight=1)
+G.add_edge(4, 6 ,weight=1)
+G.add_edge(5, 6, weight=1)
+G.add_edge(5, 7, weight=1)
+G.add_edge(5, 8, weight=1)
+G.add_edge(6, 7, weight=1)
+G.add_edge(6, 8, weight=1)
+G.add_edge(7, 8, weight=1)
+G.add_edge(7, 9, weight=1)
+
+
+
 
 
 n = len(G.nodes())
@@ -26,24 +48,22 @@ print("LOAD CENTRALITY NOT normalized")
 d = nx.load_centrality(G, normalized=False, weight=None)
 print(d)
 
-
+print("STRESS CENTRALITY starting from Load")
 #  try to normalize by myself 
 #  SC = LC * (#shortest paths)
-
 for key in d:
 	print(d[key]*shortest_paths)
 
-print("BETWEENESS  centrality")
-print(nx.betweenness_centrality(G, normalized=False))
+print("BETWEENESS  centrality not normalized")
+print(nx.betweenness_centrality(G, normalized=False,k=n,weight=None))
 
-print("CLOSENESS centrality:")
+print("CLOSENESS centrality not normalized:")
 print(nx.closeness_centrality(G ,normalized=False))
 
-
+'''
 
 # to print the graph (matplotlib required)
 
-'''
 val_map = {'A': 1.0,
            'D': 0.5714285714285714,
            'E': 0.0,
