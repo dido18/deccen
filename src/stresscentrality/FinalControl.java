@@ -56,7 +56,7 @@ public class FinalControl implements Control {
 
 
             long sc = 0; // stress centrality
-			long bc = 0;  // betwennws centrality
+			//long bc = 0;  // betwennes centrality
 
 			for (int i = 0; i < Network.size(); i++) {
 				for (int j = 0; j < Network.size(); j++) {
@@ -66,18 +66,20 @@ public class FinalControl implements Control {
 							int sv = cp.spTable.get(s);
 							int vt = cp.spTable.get(t);
 							sc += sv * vt;
-							bc += sc / rp.tableReport.getWeigth(s, t);
+							//bc += sc / rp.tableReport.getWeigth(s, t);
 						}
 
 				}
 			}
 
 
-			sb.append("\tCs:"+sc);
-			sb.append("\tBs:"+bc);
-			System.out.print(sb);
+			sb.append("\tSc:"+sc);
+			//sb.append("\tBs:"+bc);
+
+
 		}
 		sb.append("}");
+		System.out.print(sb);
 
 		return false;
 	}
