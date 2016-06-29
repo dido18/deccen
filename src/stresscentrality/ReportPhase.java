@@ -30,15 +30,15 @@ public class ReportPhase implements CDProtocol{
 
         int linkableID = FastConfig.getLinkable(protocolID);
         Linkable linkable = (Linkable)node.getProtocol(linkableID);
-        CountPhase cp = (CountPhase)node.getProtocol(protocol);  // for
+        CountPhase cp = (CountPhase)node.getProtocol(protocol);
         for(int j=0; j < linkable.degree(); j++) {
             Node peern = linkable.getNeighbor(j);
             ReportPhase rpPeern = (ReportPhase) peern.getProtocol(protocolID);
-            for(Node s : cp.nodeDistance.keySet()) {
+            for(Node s : cp.nodeDistance.keySet()) { //send the distances that it has in the table
                 ReportMessage msg = new ReportMessage(s, node, cp.nodeDistance.get(s));
                 rpPeern.receiveReport(peern, msg);
             }
-            for(Node n: tableReport.keySetSender()){
+            for(Node n: tableReport.keySetSender()){   //send the distance that it has already received
                 try {
                     for(Node m : tableReport.getTargets(n)) {
                         ReportMessage msg = new ReportMessage(n, m, tableReport.getWeigth(n, m));
@@ -55,14 +55,18 @@ public class ReportPhase implements CDProtocol{
         }
 
     public void receiveReport(Node receiver, ReportMessage msg){
-        numReport++;
+
         CountPhase cp = (CountPhase)receiver.getProtocol(1);
         Node s = msg.sender;
         Node t = msg.target;
-        if(cp.nodeDistance.containsKey(s) && cp.nodeDistance.containsKey(t)) {
-            if (cp.nodeDistance.get(s) + cp.nodeDistance.get(t) == msg.weigth) { //contributing message  d(s,v)+d(v,t) == weigth msg
-                //System.out.print("\nnode " + receiver.getID() + ": is contributing (" + s.getID() + " " + t.getID() + ")");
-                tableReport.put(s, t, msg.weigth);
+        if(!tableReport.contains(s,t)){ // discard backfiring messages
+            numReport++;
+            if(cp.nodeDistance.containsKey(s) && cp.nodeDistance.containsKey(t)) {
+
+                if (cp.nodeDistance.get(s) + cp.nodeDistance.get(t) == msg.weigth) { //contributing message  d(s,v)+d(v,t) == weigth msg
+                    //System.out.print("\nnode " + receiver.getID() + ": is contributing (" + s.getID() + " " + t.getID() + ")");
+                    tableReport.put(s, t, msg.weigth);
+                }
             }
         }
 

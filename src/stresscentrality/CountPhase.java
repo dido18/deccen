@@ -59,13 +59,16 @@ public class CountPhase implements CDProtocol{
 
     public void receiveNOSP(NospMessage msg){
 
-        numNOSP++;
         Node from = msg.getSender();
-        if(nospBuffer.containsKey(from))
-            //nospBuffer.put(from, nospBuffer.get(from) + 1); //old version
-            nospBuffer.put(from, nospBuffer.get(from) + msg.getWeight());
-        else
-            nospBuffer.put(from, msg.getWeight()); // weigth == number of shortest path from the node "from"
+        if(!spTable.containsKey(from)) {
+            numNOSP++;
+            if (nospBuffer.containsKey(from))
+                //nospBuffer.put(from, nospBuffer.get(from) + 1); //old version
+                nospBuffer.put(from, nospBuffer.get(from) + msg.getWeight());
+            else
+                nospBuffer.put(from, msg.getWeight()); // weigth == number of shortest path from the node "from"
+        }
+        //else ingore
     }
 
 

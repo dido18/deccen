@@ -71,8 +71,6 @@ public class FinalControl implements Control {
 
 				}
 			}
-
-
 			sb.append("\tSc:"+sc);
 			//sb.append("\tBs:"+bc);
 

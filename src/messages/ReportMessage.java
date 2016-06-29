@@ -8,8 +8,7 @@ import peersim.core.Node;
  */
 public class ReportMessage {
     /*
-        every node t wil create  a report massge with ID(t), ID(s)
-        with weigth the distance or number of shortest paths.
+       Report massge with ID(t), ID(s) and as weigth the distance or number of shortest paths (depends an the metric).
      */
     public Node sender;
     public Node target;

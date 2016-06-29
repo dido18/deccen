@@ -39,9 +39,10 @@ public class LogMessages implements Control {
 			//cycle = cp.cycle;
 		}
 		long tot = numNosp+numControl;
-		String log = "("+ CDState.getCycle()+","+tot+ "; nosp:"+numNosp+" Control:"+numControl+")";
+		String logTot = "("+ CDState.getCycle()+","+tot+ ")"+"("+ CDState.getCycle()+","+ numNosp+")"+"("+ CDState.getCycle()+","+numControl+ ")  ";
+		//nosp:"+numNosp+" Report:"+numControl+")";
 
-		writeIntoFile(log);
+		writeIntoFile(logTot);
 
 		return false;
 	}

@@ -26,7 +26,7 @@ public class CountSPControl implements Control {
      */
 	public boolean execute() {
 
-		//System.out.print("\n\n["+ CDState.getCycle()+"]-CountSPControl - node x: (peern : num_sp $ distance) {");
+		System.out.print("\n\n["+ CDState.getCycle()+"]-CountSPControl - node x: (peern : num_sp $ distance) {");
 		for(int i =0; i < Network.size(); i++){
 			CountPhase sc = ((CountPhase) Network.get(i).getProtocol(protocolID));
 
@@ -41,12 +41,12 @@ public class CountSPControl implements Control {
 
             }
 
-			/*if(!sc.spTable.isEmpty()) {
+			if(!sc.spTable.isEmpty()) {
 				System.out.print("\n \tNode " + i + " -> ");
 				for (Node n : sc.spTable.keySet()) {
 					System.out.print("(" + n.getID() + " #sp=" + sc.spTable.get(n) + " d=" + sc.nodeDistance.get(n) + ") ");
 				}
-			}*/
+			}
 		}
 		System.out.print("\n}");
 
